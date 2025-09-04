@@ -3,17 +3,6 @@
 
 #include "verify_result.hpp"
 
-void verify_copy(const std::vector<float>  in, const std::vector<float> out) {
-
-  for(auto i = 0; i < in.size(); i++) {
-    if(in[i] != out[i]) {
-      std::cout << "Failed" << std::endl;
-      return;
-    }
-  }
-  std::cout << "Passed" << std::endl;
-}
-
 void verify_data_reset(const std::vector<float>  in, const std::vector<float> out) {
   const auto m = in.size();
 

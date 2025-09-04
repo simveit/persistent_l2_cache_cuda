@@ -5,7 +5,7 @@
 #include "data_resetting.cuh"
 #include "kernel.cuh"
 
-void run_data_resetting(const float*  in, float* out, const int n, const int m, const int device_id) {
+void run_data_reset(const float*  in, float* out, const int n, const int m, const int device_id) {
     const size_t size_in = m * sizeof(float);
     const size_t size_out = n * sizeof(float);
     float *d_in, *d_out;
@@ -44,7 +44,7 @@ void run_data_resetting(const float*  in, float* out, const int n, const int m, 
 }
 
 
-void run_data_resetting_persistence(const float*  in, float* out, const int n, const int m, const int device_id) {
+void run_data_reset_with_l2_persistence(const float*  in, float* out, const int n, const int m, const int device_id) {
     const size_t size_in = m * sizeof(float);
     const size_t size_out = n * sizeof(float);
     float *d_in, *d_out;
@@ -98,7 +98,7 @@ void run_data_resetting_persistence(const float*  in, float* out, const int n, c
     CHECK_CUDA_ERROR(cudaStreamDestroy(stream));
 }
 
-void run_stream(const float*  in_persistent, const float*  in_streaming, float* out, const int n, const int m, const int device_id) {
+void run_stream_and_persistent(const float*  in_persistent, const float*  in_streaming, float* out, const int n, const int m, const int device_id) {
     const size_t size_in = m * sizeof(float);
     const size_t size_out = n * sizeof(float);
     float *d_in_persistent, *d_in_streaming, *d_out;
@@ -140,7 +140,7 @@ void run_stream(const float*  in_persistent, const float*  in_streaming, float* 
     CHECK_CUDA_ERROR(cudaStreamDestroy(stream));
 }
 
-void run_stream_and_persistent(const float*  in_persistent, const float*  in_streaming, float* out, const int n, const int m, const int device_id) {
+void run_stream_and_persistent_with_l2_persistence(const float*  in_persistent, const float*  in_streaming, float* out, const int n, const int m, const int device_id) {
     const size_t size_in = m * sizeof(float);
     const size_t size_out = n * sizeof(float);
     float *d_in_persistent, *d_in_streaming, *d_out;
@@ -165,7 +165,7 @@ void run_stream_and_persistent(const float*  in_persistent, const float*  in_str
     CHECK_CUDA_ERROR(cudaMemcpy(d_in_streaming, in_streaming, size_out, cudaMemcpyHostToDevice));
     CHECK_CUDA_ERROR(cudaStreamCreate(&stream));
 
-    size_t l2_max_cache_persistent = 16 * 1024 * 1024;//1 * 1024 * 1024; 
+    size_t l2_max_cache_persistent = 8 * 1024 * 1024;//1 * 1024 * 1024; 
     std::cout << "Set Limit for persisting L2 cache size equal to " << l2_max_cache_persistent / (1024 * 1024) << "MB" << std::endl;
     CHECK_CUDA_ERROR(cudaDeviceSetLimit(cudaLimitPersistingL2CacheSize, l2_max_cache_persistent));
 

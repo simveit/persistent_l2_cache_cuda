@@ -24,7 +24,7 @@ int main(int argc, char* argv[]) {
     auto gen = [&](){ return dist(eng); };
     std::generate(in.begin(), in.end(), gen);
 
-    run_data_resetting_persistence(in.data(), out.data(), N, M, device_id);
+    run_data_reset_with_l2_persistence(in.data(), out.data(), N, M, device_id);
 
     verify_data_reset(in, out);
 

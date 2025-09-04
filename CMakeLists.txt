@@ -12,7 +12,6 @@ set(CMAKE_CXX_FLAGS "-O3")
 
 add_library(gpu_lib SHARED
     gpu/cuda_utils.cu
-    gpu/copy.cu
     gpu/data_resetting.cu
     gpu/kernel.cu
 )
@@ -22,9 +21,6 @@ add_library(utils SHARED
     utils/verify_result.cpp
 )
 target_include_directories(utils PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/utils)
-
-add_executable(main_copy src/main_copy.cu)
-target_link_libraries(main_copy PRIVATE gpu_lib utils)
 
 add_executable(main_data_resetting src/main_data_resetting.cu)
 target_link_libraries(main_data_resetting PRIVATE gpu_lib utils)

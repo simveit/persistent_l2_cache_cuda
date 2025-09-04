@@ -16,20 +16,20 @@ int main(int argc, char* argv[]) {
     if (argc > 2) N = std::atoi(argv[2]);
     if (argc > 3) M = std::atoi(argv[3]);
 
-    std::vector<float> in_persistent(M);
-    std::vector<float> in_stream(N);
-    std::vector<float> out(N);
+    std::vector<float> persistent_data(M);
+    std::vector<float> streaming_data(N);
+    std::vector<float> output_data(N);
 
     //std::mt19937 eng {42};  
     std::minstd_rand eng {42};
     std::normal_distribution<float> dist {0, 10};
     auto gen = [&](){ return dist(eng); };
-    std::generate(in_persistent.begin(), in_persistent.end(), gen);
-    std::generate(in_stream.begin(), in_stream.end(), gen);
+    std::generate(persistent_data.begin(), persistent_data.end(), gen);
+    std::generate(streaming_data.begin(), streaming_data.end(), gen);
 
-    run_stream_and_persistent_batched(in_persistent.data(), in_stream.data(), out.data(), N, M, device_id);
+    run_stream_and_persistent_batched(persistent_data.data(), streaming_data.data(), output_data.data(), N, M, device_id);
 
-    verify_stream_and_persistent(in_persistent, in_stream, out);
+    verify_stream_and_persistent(persistent_data, streaming_data, output_data);
 
     return 0;
 }
