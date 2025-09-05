@@ -1,4 +1,7 @@
-## L2 Cache
+## Persistent L2 Cache
+
+Blogpost:
+
 
 This is a project to learn mainly about the L2 Cache and how we can set aside parts of it for persistence access using `CUDA`.
 As a side effect this might be seen as a template for further `CUDA` projects using `cmake`. To understand better it is useful to look at the corresponding profiles in `NCU`.
@@ -33,3 +36,5 @@ or simply run the kernels.
 
 For different architecture or arguments to the compiler adjust `CMAKE_CUDA_ARCHITECTURES` in `CMakeLists.txt`.
 Note the outcommented code using `atomicAdd` on `float4` will only work on Hopper (it's not performant though).
+
+You can see [here](https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/#l2-cache) for the corresponding section in Cuda best practices guide. 
