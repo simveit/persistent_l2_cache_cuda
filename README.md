@@ -1,7 +1,8 @@
 ## Persistent L2 Cache
 
 Blogpost:
-https://veitner.bearblog.dev/l2-benchmarking/
+[https://veitner.bearblog.dev/l2-benchmarking/
+](https://veitner.bearblog.dev/gpu-l2-cache-persistence/)
 
 This is a project to learn mainly about the L2 Cache and how we can set aside parts of it for persistence access using `CUDA`.
 As a side effect this might be seen as a template for further `CUDA` projects using `cmake`. To understand better it is useful to look at the corresponding profiles in `NCU`.
